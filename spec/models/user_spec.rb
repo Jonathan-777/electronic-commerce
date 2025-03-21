@@ -58,6 +58,41 @@ RSpec.describe User, type: :model do
 
   end
     
+
+  context 'updating user attributes' do
+    let!(:user) { create(:user, first_name: 'OldName', last_name: 'Doe', email: 'old@example.com', password: 'password123', guest: false) }
+  
+    it 'successfully updates the first name' do
+      user.update(first_name: 'NewName')
+      expect(user.reload.first_name).to eq('NewName')  # reload is a active record function, checks db
+    end
+  
+    it 'successfully updates the email' do
+      user.email = 'new@example.com'
+      user.save
+      expect(user.reload.email).to eq('new@example.com')
+    end
+  
+    it 'successfully updates guest status' do
+      user.update(guest: true)
+      expect(user.reload.guest).to be true
+    end
+  
+    it 'fails to update with invalid email' do
+      expect(user.update(email: '')).to be false
+      expect(user.errors[:email]).to include("can't be blank")
+    end
+  
+    it 'fails to update a registered user with no password' do
+      user.guest = false
+      user.password = nil
+      expect(user.save).to be false
+      expect(user.errors[:password]).to include("can't be blank")
+    end
+  end
+
+
+
   context 'guest vs registered users scope' do
     let(:user) { build(:random_user) } 
     
