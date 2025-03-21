@@ -10,15 +10,15 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
         <a class="navbar-brand" href="#">Marketplace</a>
         <input class="form-control me-2 w-25" type="text" placeholder="Search">
-        <div>
-            <a class="nav-link d-inline text-light" href="#">Categories</a>
-            <a class="nav-link d-inline text-light" href="#">Cart</a>
-            <a class="nav-link d-inline text-light" href="#">Account</a>
+        <div class="ms-auto">
+            <a class="nav-link d-inline text-light px-3" href="#">Categories</a>
+            <a class="nav-link d-inline text-light px-3" href="#">Cart</a>
+            <a class="nav-link d-inline text-light px-3" href="#">Account</a>
         </div>
     </nav>
 
-    <div class="container text-center my-5">
-        <div class="banner bg-light p-5 rounded">
+    <div class="banner p-5 rounded" style="background-image: url(<%= asset_path('shopping-bag.webp') %>); background-size: cover; background-position: center; color: white; text-shadow: 1px 1px 4px rgba(0,0,0,0.7);"">
+        <div class="banner bg-light p-5 rounded syle" style = "color:black;">
             <h1 class="display-4">Welcome to the Marketplace</h1>
             <p class="lead">Find everything you need here</p>
         </div>
