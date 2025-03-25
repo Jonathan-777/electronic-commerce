@@ -25,6 +25,11 @@ RSpec.describe User, type: :model do
 
     end
 
+    it 'ensures that a guest user does not need an email' do
+      user = User.new(first_name: 'First', last_name: 'Last', guest: true)
+      expect(user.valid?).to eq(true)  
+    end
+
     it 'should save into db when user is guest' do 
       user = User.new(first_name: 'first', last_name: 'last', email: 'someone@gmail.com', password: 'supersecurepassword', guest: true).save
       expect(user).to eq(true)
@@ -40,6 +45,7 @@ RSpec.describe User, type: :model do
       user = User.new(first_name: 'First', last_name: 'Last', email: 'sample@gmail.com', guest: false)
       expect(user.valid?).to eq(false)  
     end
+
     
     it 'ensures that a guest user can be created without a password' do
       user = User.new(first_name: 'First', last_name: 'Last', email: 'guest@gmail.com', guest: true)
