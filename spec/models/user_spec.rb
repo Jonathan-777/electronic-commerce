@@ -3,16 +3,16 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   include FactoryBot::Syntax::Methods
 
-  #pending "add some examples to (or delete) #{__FILE__}"
+  # pending "add some examples to (or delete) #{__FILE__}"
 
   context 'validation of subscribed-user creation' do
 
     it 'ensures that the registered user has a first name' do
-      user = User.new(last_name: 'last', email: 'sample@gmail.com',password: 'supersecurepassword', guest: 'false').save
+      user = User.new(last_name: 'last', email: 'sample@gmail.com', password: 'supersecurepassword', guest: 'false').save
       expect(user).to eq(false)
 
     end
-    
+
     it 'ensures that the registered user has a last name' do
       user = User.new(first_name: 'First', email: 'sample@gmail.com', password: 'supersecurepassword', guest: 'false').save
       expect(user).to eq(false)
@@ -33,7 +33,6 @@ RSpec.describe User, type: :model do
     it 'should save into db when user is guest' do 
       user = User.new(first_name: 'first', last_name: 'last', email: 'someone@gmail.com', password: 'supersecurepassword', guest: true).save
       expect(user).to eq(true)
-
     end
 
     it 'should save into db when user is registered' do 
@@ -56,9 +55,8 @@ RSpec.describe User, type: :model do
       user = User.create!(first_name: 'First', last_name: 'Last', email: 'secure@gmail.com', password: 'supersecurepassword' ,guest: false)
       expect(user.password_digest).not_to eq('supersecurepassword')  # Password should be hashed
       expect(user.password_digest).to be_present
-      #ensure bycrypt format for hashing is valid
+      # ensure bycrypt format for hashing is valid
       expect(user.password_digest).to match(/^\$2[ayb]\$.{56}$/)
-
     end
 
 
