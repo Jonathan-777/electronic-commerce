@@ -4,12 +4,12 @@ class User < ApplicationRecord
   
     has_secure_password validations: false # If we don’t disable built in validations, Rails always requires a password, even for guests.Since we conditionally enforce password validation in our custom validation, we must turn off the default one
     
-    scope :registered_users, -> { where(guest: false)}
-    scope :guests, -> { where(guest: true)}
+    scope :registered_users, -> { where(guest: false) }
+    scope :guests, -> { where(guest: true) }
     validates :first_name, presence: true
     validates :last_name, presence: true
-    validates :email, presence: true, uniqueness: true, unless: -> {guest == true}
-    validates :guest, inclusion: { in: [true, false] }
+    validates :email, presence: true, uniqueness: true, unless: -> { self.guest == true }
+    validates :guest, inclusion: { in: [ true, false ] }
     validates :password, presence: true, if: -> { guest == false }
 
 
@@ -24,5 +24,4 @@ class User < ApplicationRecord
           @email = nil
         end
     end
-
 end

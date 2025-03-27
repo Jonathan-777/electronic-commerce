@@ -21,10 +21,14 @@
     <%= form.text_field :password %>
   </div>
 
-  <div>
-    <%= form.label :guest, style: "display: block" %>
-    <%= form.check_box :guest %>
-  </div>
+
+ <div>
+  <%= form.label :guest, "click to create guest experience", style: "display: block" %>
+  <%= form.check_box :guest %>
+ </div>
+
+
+
 
   <div>
     <%= form.label :first_name, style: "display: block" %>
