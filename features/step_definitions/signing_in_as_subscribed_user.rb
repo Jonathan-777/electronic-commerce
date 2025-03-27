@@ -12,26 +12,21 @@ RSpec.feature "Users", type: :feature do
        fill_in 'Password', with: "superPassword"
        fill_in 'First name', with: "jhon"
        fill_in 'Last name', with: "doe"
-
       end
       click_button 'Create User'
       expect(page).to have_content('User was successfully created')
     end
     scenario 'should fail' do
       User.create!(email: "first.user@email.com", password: "whatever", first_name: "Existing", last_name: "User")
-
       visit new_user_path
-    
       within('form') do
         fill_in 'Email', with: "first.user@email.com"
         fill_in 'Password', with: "superPassword"
         fill_in 'First name', with: "jhon"
         fill_in 'Last name', with: "doe"
       end
-    
       click_button 'Create User'
       expect(page).to have_content('Email has already been taken')
-    
     end
   end
 end

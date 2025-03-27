@@ -19,6 +19,7 @@ class User < ApplicationRecord
         if guest
           # Remove password-related attributes for guests
           self.password_digest = nil
+          self.email = nil
           @password = nil
           @password_confirmation = nil
           @email = nil
