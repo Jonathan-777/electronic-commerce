@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "sessions/new"
+  get "sessions/create"
+  get "sessions/destroy"
   resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -13,10 +16,12 @@ Rails.application.routes.draw do
   delete "logout" => "users#destroy" # Logout action
 
   # Set login/signup page as the root
-  root "users#new"
+  resources :products
+  root "products#index"
+  post "cart", to: "cart#add", as: "cart"
 
 
- 
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
