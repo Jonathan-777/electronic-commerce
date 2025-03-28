@@ -1,0 +1,23 @@
+<%= form_with model: @order, url: checkouts_path, method: :post do |f| %>
+  <h2>Shipping Address</h2>
+  <%= f.label :first_name, "First Name" %>
+  <%= f.text_field :first_name %>
+
+  <%= f.label :last_name, "Last Name" %>
+  <%= f.text_field :last_name %>
+
+  <%= f.label :address, "Shipping Address" %>
+  <%= f.text_field :address %>
+
+  <h2>Payment Details</h2>
+  <%= f.label :credit_card_number, "Credit Card Number" %>
+  <%= f.text_field :credit_card_number %>
+
+  <%= f.label :expiration_date, "Expiration Date" %>
+  <%= f.text_field :expiration_date %>
+
+  <%= f.label :cvv, "CVV" %>
+  <%= f.text_field :cvv %>
+
+  <%= f.submit "Place Order" %>
+<% end %>
