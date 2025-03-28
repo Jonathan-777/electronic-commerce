@@ -1,0 +1,11 @@
+<h1>Your Cart</h1>
+
+<% @cart_products.each do |product| %>
+  <p><%= product.name %> - $<%= product.price %></p>
+<% end %>
+
+<%= form_with url: new_checkout_path, method: :get do %>
+  <%= check_box_tag 'guest_checkout', 'true' %>
+  <%= label_tag 'guest_checkout', 'Checkout as Guest' %>
+  <%= submit_tag "Proceed to Checkout" %>
+<% end %>
