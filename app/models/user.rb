@@ -1,5 +1,6 @@
 class User < ApplicationRecord
 
+    has_one :user_data, dependent: :destroy
     before_validation :handle_guest_behavior
   
     has_secure_password validations: false # If we don’t disable built in validations, Rails always requires a password, even for guests.Since we conditionally enforce password validation in our custom validation, we must turn off the default one
