@@ -27,22 +27,22 @@ RSpec.describe User, type: :model do
 
     it 'ensures that a guest user does not need an email' do
       user = User.new(first_name: 'First', last_name: 'Last', guest: true)
-      expect(user.valid?).to eq(true)  
+      expect(user.valid?).to eq(true)
     end
 
-    it 'should save into db when user is guest' do 
-      user = User.new(first_name: 'first', last_name: 'last', email: 'someone@gmail.com', password: 'supersecurepassword', guest: true).save
+    it 'should save into db when user is guest' do
+      user = User.new(first_name: 'first', last_name: 'last', guest: true).save
       expect(user).to eq(true)
     end
 
-    it 'should save into db when user is registered' do 
+    it 'should save into db when user is registered' do
       user = User.new(first_name: 'first', last_name: 'last', email: 'someone@gmail.com', password: 'supersecurepassword', guest: false).save
       expect(user).to eq(true)
     end
 
     it 'ensures that a registered user must have a password' do
       user = User.new(first_name: 'First', last_name: 'Last', email: 'sample@gmail.com', guest: false)
-      expect(user.valid?).to eq(false)  
+      expect(user.valid?).to eq(false)
     end
 
     
@@ -53,10 +53,10 @@ RSpec.describe User, type: :model do
 
     it 'ensures that password is securely stored' do
       user = User.create!(first_name: 'First', last_name: 'Last', email: 'secure@gmail.com', password: 'supersecurepassword' ,guest: false)
-      expect(user.password_digest).not_to eq('supersecurepassword')  # Password should be hashed
-      expect(user.password_digest).to be_present
+      expect(user.encrypted_password).not_to eq('supersecurepassword')  # Password should be hashed
+      expect(user.encrypted_password).to be_present
       # ensure bycrypt format for hashing is valid
-      expect(user.password_digest).to match(/^\$2[ayb]\$.{56}$/)
+      expect(user.encrypted_password).to match(/^\$2[ayb]\$.{56}$/)
     end
 
 

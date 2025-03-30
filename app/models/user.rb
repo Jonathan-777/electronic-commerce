@@ -1,9 +1,13 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
 
     has_one :user_data, dependent: :destroy
     before_validation :handle_guest_behavior
+
   
-    has_secure_password validations: false # If we don’t disable built in validations, Rails always requires a password, even for guests.Since we conditionally enforce password validation in our custom validation, we must turn off the default one
     
     scope :registered_users, -> { where(guest: false) }
     scope :guests, -> { where(guest: true) }
@@ -19,11 +23,21 @@ class User < ApplicationRecord
     def handle_guest_behavior
         if guest
           # Remove password-related attributes for guests
-          self.password_digest = nil
+          self.encrypted_password = nil
           self.email = nil
+          self.password = nil
+          self.password_confirmation = nil
           @password = nil
           @password_confirmation = nil
           @email = nil
         end
     end
+
+    def email_required?
+      !guest?
+    end
+    def password_required?
+      !guest?
+    end
+    
 end

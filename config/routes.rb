@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+  # devise_for :users   ## adds functionality
   
     # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
+    devise_for :users, path: 'auth', controllers: {
+      sessions: 'auth/sessions',
+      registrations: 'auth/registrations'
+    }
 
     get "home" => "home#index"
     get "layouts" => "layouts#index"

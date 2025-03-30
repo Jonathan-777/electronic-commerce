@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_27_210003) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_30_173110) do
   create_table "user_data", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "bio"
@@ -25,13 +25,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_210003) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "password_digest"
     t.boolean "guest", default: true, null: false
     t.string "first_name"
     t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email", default: ""
+    t.string "encrypted_password", default: ""
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "user_data", "users"
