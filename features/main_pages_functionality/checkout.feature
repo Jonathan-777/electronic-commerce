@@ -11,7 +11,7 @@ Feature: Checkout & Payment Page
     And I can complete my purchase without creating an account
 
   Scenario: non-guest checkout requires login
-    Given the user is not logged in
+    Given the user is not logged in as guest/user
     When they try to check out
     Then they are asked to log in
 
