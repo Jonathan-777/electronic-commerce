@@ -19,7 +19,12 @@ Rails.application.routes.draw do
     # Set login/signup page as the root
     root "users#new"
 
-
+    # Add namespace for admin
+    namespace :admin do
+      resources :users do
+        resources :user_data
+      end
+    end
   
     # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
     # Can be used by load balancers and uptime monitors to verify that the app is live.
