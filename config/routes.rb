@@ -28,11 +28,6 @@ Rails.application.routes.draw do
     root "users#new"
 
     # Add namespace for admin
-    namespace :admin do
-      resources :users do
-        resources :user_data
-      end
-    end
 
 
     namespace :admin do
