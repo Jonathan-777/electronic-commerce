@@ -7,6 +7,6 @@ Feature: I am on the landing page
     Scenario: I want to create a new account as non-guest
         Given I am on the landing page
         When I click on the typebox fields
-        I am allowed to type in all fields my data
+        And I fill all the typebox fields out
         And I have guest checkbox empty
         I am allowed to create my new account

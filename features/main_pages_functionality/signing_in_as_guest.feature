@@ -9,4 +9,5 @@ Feature: creating a guest  account in landing page
         When fill out first name
         And I fill out last name
         And I click the guest checkbox
+        And I click create account
         Then I am taken to welcome page

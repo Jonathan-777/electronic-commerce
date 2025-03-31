@@ -7,7 +7,7 @@ Feature: Product Page Interactions
   Scenario: Browsing Featured Products
     Given I am on the landing page
     When I click on a product
-    Then I remain on the same page while a quick preview modal appears
+    Then I am redirected to product details page
     And I see the product image, price, details, and an “Add to Cart” button
 
 
