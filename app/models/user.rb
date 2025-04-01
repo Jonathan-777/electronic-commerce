@@ -11,8 +11,8 @@ class User < ApplicationRecord
     
     scope :registered_users, -> { where(guest: false) }
     scope :guests, -> { where(guest: true) }
-    validates :first_name, presence: true
-    validates :last_name, presence: true
+    validates :first_name, presence: true, if: -> {guest == true}
+    validates :last_name, presence: true, if: -> {guest == true}
     validates :email, presence: true, uniqueness: true, unless: -> { self.guest == true }
     validates :guest, inclusion: { in: [ true, false ] }
     validates :password, presence: true, if: -> { guest == false }

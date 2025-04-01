@@ -23,6 +23,12 @@
         <%= f.label :password_confirmation %><br />
         <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
       </div>
+      
+      <div>
+        <%= f.label :guest, "click to create guest experience", style: "display: block" %>
+        <%= f.check_box :guest%> 
+      </div>
+
 
       <div class="form-group">
         <%= f.submit "Sign up", class: "btn btn-primary btn-block btn-lg" %>
