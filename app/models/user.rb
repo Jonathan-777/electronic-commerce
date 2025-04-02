@@ -7,8 +7,7 @@ class User < ApplicationRecord
     has_one :user_data, dependent: :destroy
     before_validation :handle_guest_behavior
 
-  
-    
+
     scope :registered_users, -> { where(guest: false) }
     scope :guests, -> { where(guest: true) }
     validates :first_name, presence: true, if: -> {guest == true}
@@ -39,5 +38,4 @@ class User < ApplicationRecord
     def password_required?
       !guest?
     end
-    
 end

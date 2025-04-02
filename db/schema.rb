@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_01_181403) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_02_053208) do
   create_table "user_data", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "bio"
@@ -26,8 +26,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_01_181403) do
 
   create_table "users", force: :cascade do |t|
     t.boolean "guest", default: true, null: false
-    t.string "first_name", default: "", null: false
-    t.string "last_name", default: "", null: false
+    t.string "first_name"
+    t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", default: ""

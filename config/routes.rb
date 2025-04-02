@@ -6,12 +6,12 @@ Rails.application.routes.draw do
       sessions: 'auth/sessions',
       registrations: 'auth/registrations'
     }
+    authenticated :user do
+      root to: 'home#index', as: :authenticated_root
+    end
 
-    # Rails.application.routes.draw do
-    #   devise_for :users, controllers: {
-    #     sessions: 'users/sessions'
-    #   }
-    # end
+
+
 
     get "home" => "home#index"
     get "layouts" => "layouts#index"
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     delete "logout" => "users#destroy" # Logout action
 
     # Set login/signup page as the root
-    root "users#new"
+    # root "users#new"
 
     # Add namespace for admin
 

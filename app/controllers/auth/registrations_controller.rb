@@ -6,13 +6,12 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
+    
     super
   end
 
   # POST /resource
   def create
-
-
     super
   end
 
@@ -31,6 +30,9 @@ class Auth::RegistrationsController < Devise::RegistrationsController
     super
   end
 
+
+  
+
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
   # in to be expired now. This is useful if the user wants to
@@ -42,12 +44,12 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
     protected
 
+
+
   # If you have extra params to permit, append them to the sanitizer.
 
   def configure_sign_up_params
-    puts " CUSTOM REGISTRATIONS CONTROLLER LOADED"
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :guest])
-    
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -64,4 +66,6 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   def after_inactive_sign_up_path_for(resource)
     super(resource)
   end
+
+
 end

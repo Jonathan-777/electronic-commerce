@@ -4,11 +4,13 @@
     <h1 class="text-center">Sign Up</h1>
     <hr>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= devise_error_messages! %>
+      <%= render "devise/shared/error_messages", resource: resource  %>
 
       <div class="form-group">
         <%= f.label :email %><br />
         <%= f.email_field :email, autofocus: false, class: 'form-control' %>
+        
+
       </div>
 
       <div class="form-group">
@@ -25,10 +27,20 @@
       </div>
       
       <div>
+        <% resource.guest = false if resource.new_record? %>
         <%= f.label :guest, "click to create guest experience", style: "display: block" %>
-        <%= f.check_box :guest%> 
+        <%= f.check_box :guest, { id: 'guest_checkbox' }, "1", "0" %>
       </div>
 
+      <div class="form-group">
+        <%= f.label :first_name %><br />
+        <%= f.text_field :first_name, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :last_name %><br />
+        <%= f.text_field :last_name, class: 'form-control' %>
+      </div>
 
       <div class="form-group">
         <%= f.submit "Sign up", class: "btn btn-primary btn-block btn-lg" %>
@@ -39,3 +51,34 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const guestCheckbox = document.getElementById("guest_checkbox");
+    const emailField = document.getElementById("user_email");
+    const passwordField = document.getElementById("user_password");
+    const passwordConfirmationField = document.getElementById("user_password_confirmation");
+
+    function toggleFields() {
+      const disabled = guestCheckbox.checked;
+      [emailField, passwordField, passwordConfirmationField].forEach(field => {
+        field.disabled = disabled;
+        field.classList.toggle("disabled-field", disabled);
+      });
+    }
+
+    guestCheckbox.addEventListener("change", toggleFields);
+
+    // Run on initial load in case checkbox is pre-checked
+    toggleFields();
+  });
+</script>
+
+
+<style>
+  .disabled-field {
+    background-color:rgb(37, 27, 27);
+    cursor: not-allowed;
+  }
+</style>
