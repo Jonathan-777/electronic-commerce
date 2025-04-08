@@ -4,6 +4,8 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
+require 'capybara/rspec'
+
 require 'cucumber/rails'
 require 'capybara'
 
