@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+
 RSpec.feature "Users", type: :feature do
   context 'create new guest' do
     scenario 'should be successful' do
@@ -27,7 +28,7 @@ RSpec.feature "Users", type: :feature do
       user = User.order(created_at: :desc).first
       expect(user.guest).to be true
       expect(user.email).to be_nil.or be_blank
-      expect(user.password_digest).to be_nil.or be_blank
+      expect(user.encrypted_password).to be_nil.or be_blank
     end
   end
 end

@@ -9,4 +9,4 @@ Feature: I am on the landing page
         When I click on the typebox fields
         And I fill all the typebox fields out
         And I have guest checkbox empty
-        I am allowed to create my new account
+        Then I am allowed to create my new account

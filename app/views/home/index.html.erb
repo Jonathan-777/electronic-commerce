@@ -14,7 +14,23 @@
             <a class="nav-link d-inline text-light px-3" href="#">Categories</a>
             <a class="nav-link d-inline text-light px-3" href="#">Cart</a>
             <a class="nav-link d-inline text-light px-3" href="#">Account</a>
+            <% if user_signed_in? %>
+  <%= link_to "Log Out", destroy_user_session_path, method: :delete,
+        class: "nav-link d-inline text-light px-3",
+        data: { turbo_method: :delete } %>
+<% end %>
         </div>
+          <% if flash[:notice] %>
+    <div id="flash-message" class="position-absolute top-100 start-50 translate-middle-x bg-success text-white px-3 py-1 rounded mt-2">
+      <%= flash[:notice] %>
+    </div>
+    <script>
+        setTimeout(function () {
+        window.location.reload();
+        }, 3000); // Reload after 3 seconds
+    </script>
+  <% end %>
+
     </nav>
 
     <div class="banner p-5 rounded" style="background-image: url(<%= asset_path('shopping-bag.webp') %>); background-size: cover; background-position: center; color: white; text-shadow: 1px 1px 4px rgba(0,0,0,0.7);"">
@@ -53,4 +69,9 @@
         </div>
     </div>
 </body>
+
+
 </html>
+
+
+
