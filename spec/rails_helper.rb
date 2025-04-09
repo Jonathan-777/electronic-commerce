@@ -13,6 +13,13 @@ require 'faker'
 require 'support/factory_bot'
 require 'capybara/rails'
 
+RSpec.configure do |config|
+  config.include Warden::Test::Helpers
+  config.before(:each) { Warden.test_mode! }
+  config.after(:each) { Warden.test_reset! }
+end
+
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end

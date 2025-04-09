@@ -10,10 +10,11 @@ Rails.application.routes.draw do
       root to: 'home#index', as: :authenticated_root
     end
 
+    
 
 
 
-    get "home" => "home#index"
+    get "home" => "home#index", as: :home
     get "layouts" => "layouts#index"
     resources :users
 

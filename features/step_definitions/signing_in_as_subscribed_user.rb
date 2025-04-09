@@ -1,32 +1,27 @@
-require 'rails_helper'
+Given('I am on the landing page') do
+  visit '/' # or your landing path
+end
 
-RSpec.feature "Users", type: :feature do
-  context 'create new profile-user' do
-    let!(:user) { User.create(first_name: 'Jhon', last_name: 'Doe', email: 'jhon.doe@test.com', password: 'SuperPassword') }
-    before(:each) do
-      visit new_user_path(user)
-    end
-    scenario 'should be successful' do
-      within('form') do
-       fill_in 'Email', with: "first.user@email.com"
-       fill_in 'Password', with: "superPassword"
-       fill_in 'First name', with: "jhon"
-       fill_in 'Last name', with: "doe"
-      end
-      click_button 'Create User'
-      expect(page).to have_content('User was successfully created')
-    end
-    scenario 'should fail' do
-      User.create!(email: "first.user@email.com", password: "whatever", first_name: "Existing", last_name: "User")
-      visit new_user_path
-      within('form') do
-        fill_in 'Email', with: "first.user@email.com"
-        fill_in 'Password', with: "superPassword"
-        fill_in 'First name', with: "jhon"
-        fill_in 'Last name', with: "doe"
-      end
-      click_button 'Create User'
-      expect(page).to have_content('Email has already been taken')
-    end
-  end
+When('I click on the typebox fields') do
+  find_field('First name').click
+  find_field('Last name').click
+  find_field('Email').click
+  find_field('Password').click
+end
+
+When('I fill all the typebox fields out') do
+  fill_in 'First name', with: 'Jonathan'
+  fill_in 'Last name', with: 'Reyes'
+  fill_in 'Email', with: 'jonathan@example.com'
+  fill_in 'Password', with: 'securepass123'
+end
+
+When('I have guest checkbox empty') do
+  uncheck 'guest_checkbox'
+end
+
+Then('I am allowed to create my new account') do
+  click_button 'Sign up'
+  expect(current_path).to eq('/') # or authenticated_root_path
+  expect(page).to have_content('Log Out') # or some post-login confirmation
 end
