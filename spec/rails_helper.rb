@@ -14,10 +14,12 @@ require 'support/factory_bot'
 require 'capybara/rails'
 
 RSpec.configure do |config|
+  config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Warden::Test::Helpers
   config.before(:each) { Warden.test_mode! }
   config.after(:each) { Warden.test_reset! }
 end
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

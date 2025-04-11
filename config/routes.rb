@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+
+   
+    namespace :admin do
+      devise_for :admins, path: 'admin', controllers:{
+      sessions: 'admin/dashboard'
+      
+    }
+      resources :dashboard
+    end
+
   # devise_for :users   ## adds functionality
 
     # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
