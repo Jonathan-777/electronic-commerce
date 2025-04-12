@@ -1,62 +1,32 @@
 Rails.application.routes.draw do
-
-   
-    namespace :admin do
-      devise_for :admins, path: 'admin', controllers:{
-      sessions: 'admin/dashboard'
-      
+  namespace :admin do
+    devise_for :admins, path: "admin", controllers: {
+      sessions: "admin/sessions"
     }
-      resources :dashboard
+    resources :dashboard
+  end
+
+  # Devise routes with explicit path
+  devise_for :users, path: "auth", controllers: {
+    sessions: "auth/sessions",
+    registrations: "auth/registrations"
+  }
+
+  authenticated :user do
+    root to: "home#index", as: :authenticated_root
+  end
+
+  # Add constraints to users resource
+  resources :users, constraints: { id: /\d+/ }  # Only allow numeric IDs
+
+  get "home", to: "home#index", as: :home
+  get "layouts", to: "layouts#index"
+
+  namespace :admin do
+    resources :users do
+      resources :user_data
     end
+  end
 
-  # devise_for :users   ## adds functionality
-
-    # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-    devise_for :users, path: 'auth', controllers: {
-      sessions: 'auth/sessions',
-      registrations: 'auth/registrations'
-    }
-    authenticated :user do
-      root to: 'home#index', as: :authenticated_root
-    end
-
-    
-
-
-
-    get "home" => "home#index", as: :home
-    get "layouts" => "layouts#index"
-    resources :users
-
-    # Define authentication routes
-    get "login" => "users#new"  # Login page (signup form)
-   
-
-    post "login" => "users#create" # Handles user creation
-    delete "logout" => "users#destroy" # Logout action
-
-    # Set login/signup page as the root
-    # root "users#new"
-
-    # Add namespace for admin
-
-
-    namespace :admin do
-      resources :users do
-        resources :user_data
-      end
-    end
-
-    # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-    # Can be used by load balancers and uptime monitors to verify that the app is live.
-    get "up" => "rails/health#show", as: :rails_health_check
-
-    # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-    # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-    # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-    # Defines the root path route ("/")
-    # root "posts#index"w"
-
-
+  get "up", to: "rails/health#show", as: :rails_health_check
 end
