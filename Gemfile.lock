@@ -474,6 +474,7 @@ DEPENDENCIES
   brakeman
   capybara
   cssbundling-rails
+  cucumber
   cucumber-rails
   database_cleaner
   debug

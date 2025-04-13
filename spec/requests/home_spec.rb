@@ -29,11 +29,11 @@ RSpec.describe HomeController, type: :request do
         expect(search_field).not_to be_nil
       end
 
-      it "has a navbar with essential links" do
+      it "has a navbar with essential links when user is signed out" do
         get home_path  # Change from root_path to home_path
         expect(response.body).to include("Categories")
         expect(response.body).to include("Cart")
-        expect(response.body).to include("Account")
+        expect(response.body).to include("Sign In")
       end
 
       it "displays three product placeholders" do

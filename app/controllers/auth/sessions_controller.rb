@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Auth::SessionsController < Devise::SessionsController
-  before_action :configure_sign_in_params, only: [:create]       #issues with guest?
+  
 
   
   # GET /resource/sign_in

@@ -1,11 +1,22 @@
-<% content_for :title, "New user" %>
+<h1>Create Admin Account</h1>
 
-<h1>New user</h1>
+<%= form_with model: @admin, url: admin_sign_up_path do |f| %>
+  <div>
+    <%= f.label :email %><br>
+    <%= f.email_field :email, autofocus: true, required: true %>
+  </div>
 
-<%= render "form", user: @user %>
+  <div>
+    <%= f.label :password %><br>
+    <%= f.password_field :password, required: true %>
+  </div>
 
-<br>
+  <div>
+    <%= f.label :password_confirmation %><br>
+    <%= f.password_field :password_confirmation, required: true %>
+  </div>
 
-<div>
-  <%= link_to "Back to users", users_path %>
-</div>
+  <div>
+    <%= f.submit "Create Admin Account" %>
+  </div>
+<% end %>

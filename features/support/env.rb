@@ -5,6 +5,8 @@
 # files.
 
 require 'capybara/rspec'
+require 'capybara/cucumber'
+World(Capybara::DSL)
 
 require 'cucumber/rails'
 require 'capybara'

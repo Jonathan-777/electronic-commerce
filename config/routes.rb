@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
-
-   
-    namespace :admin do
-      devise_for :admins, path: 'admin', controllers:{
+    root "home#index"
+    devise_for :admins, path: 'admin', controllers: {
       sessions: 'admin/dashboard'
-      
+    
     }
-      resources :dashboard
+    namespace :admin do
+        resources :dashboard
+        resources :admins, only: [:index]
+        get 'sign_up', to: 'registrations#new'
+        post 'sign_up', to: 'registrations#create'
     end
 
-  # devise_for :users   ## adds functionality
+     # devise_for :users  
 
     # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
     devise_for :users, path: 'auth', controllers: {

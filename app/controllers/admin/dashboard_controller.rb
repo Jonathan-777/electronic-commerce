@@ -1,72 +1,75 @@
 class Admin::DashboardController < ApplicationController
+  before_action :authenticate_admin!, except: [:new, :create]
+  before_action :redirect_if_admin_exists, only: [:new, :create]
+  before_action :set_user, only: [:edit, :update_user, :destroy]
+
   def index
-    @users = User.all
+    @admins = Admins.all
   end
 
-  # GET /users/1 or /users/1.json
-  def show
-    @users = User.all
-  end
-
-  # GET /users/new
+  # Admin creation form (only shown if no admin exists)
   def new
+    @admin = Admin.new
+  end
+
+  # Create admin (only if no admin exists)
+  def create
+    @admin = Admin.new(admin_params)
+    if @admin.save
+      redirect_to new_admin_session_path, notice: "Admin account created. Please sign in."
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  # Admin creates new user
+  def new_user
     @user = User.new(guest: false)
   end
 
-  # GET /users/1/edit
-  def edit
-  end
-
-  # POST /users or /users.json
-  def create
-    
+  def create_user
     @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: "User was successfully created." }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      redirect_to admin_dashboard_index_path, notice: "User created."
+    else
+      render :new_user, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /users/1 or /users/1.json
-  def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: "User was successfully updated." }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+  def edit
+    # @user is already set by before_action
+  end
+
+  def update_user
+    if @user.update(user_params)
+      redirect_to admin_dashboard_index_path, notice: "User updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /users/1 or /users/1.json
   def destroy
     @user.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to users_path, status: :see_other, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to admin_dashboard_index_path, status: :see_other, notice: "User deleted."
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params.expect(:id))
+
+  def admin_params
+    params.require(:admin).permit(:email, :password, :password_confirmation)
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :password, :guest, :first_name, :last_name)
+  end
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def redirect_if_admin_exists
+    if Admin.exists?
+      redirect_to new_admin_session_path, alert: "Admin account already exists."
     end
-
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:email, :password, :guest, :first_name, :last_name)
-
-    end
-
-
+  end
 end

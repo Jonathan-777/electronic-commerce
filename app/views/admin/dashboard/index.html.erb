@@ -1,16 +1,11 @@
-<p style="color: green"><%= notice %></p>
+<h1>Admin Accounts</h1>
 
-<% content_for :title, "Users" %>
-
-<h1>Users</h1>
-
-<div id="users">
-  <% @users.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New user", new_user_path %>
+<% if @admins.any? %>
+  <ul>
+    <% @admins.each do |admin| %>
+      <li><%= admin.email %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No admin accounts yet.</p>
+<% end %>
