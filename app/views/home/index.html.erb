@@ -18,10 +18,15 @@
         <%= link_to "Log Out", destroy_user_session_path, method: :delete,
                 class: "nav-link d-inline text-light px-3",
                 data: { turbo_method: :delete } %>
-                <% else %>
-            <%= link_to "Sign In", new_user_session_path,
-                class: "nav-link d-inline text-light px-3" %>
-            <% end %>
+    <% elsif admin_signed_in? %>
+        <%= link_to "Admin Sign Out", admin_sign_out_page_path,
+            method: :delete,
+            class: "nav-link d-inline text-light px-3",
+            data: { turbo_method: :delete } %>
+    <% else %>
+      <%= link_to "Sign In", new_user_session_path,
+            class: "nav-link d-inline text-light px-3" %>
+    <% end %>
         </div>
           <% if flash[:notice] %>
     <div id="flash-message" class="position-absolute top-100 start-50 translate-middle-x bg-success text-white px-3 py-1 rounded mt-2">

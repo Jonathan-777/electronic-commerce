@@ -1,16 +1,41 @@
 Rails.application.routes.draw do
     root "home#index"
 
-    devise_for :admins, path: 'admin', controllers: {
+    devise_for :admins, path: 'admin', skip: [:registrations], path: 'admin', controllers: {
       sessions: 'admin/dashboard'
+     }
 
-    }
-    namespace :admin do
-        resources :dashboard
-        resources :admins, only: [:index, :edit, :update]
-        get 'sign_up', to: 'registrations#new'
-        post 'sign_up', to: 'registrations#create'
-    end
+    # namespace :admin do
+    #     resources :dashboard
+    #     resources :admins, only: [:index, :edit, :update]
+    #     get 'sign_up', to: 'registrations#new'
+    #     post 'sign_up', to: 'registrations#create'
+    # end
+    # 
+    #
+    # config/routes.rb
+
+      namespace :admin do
+
+        get 'sign_up', to: 'dashboard#new'
+        post 'sign_up', to: 'dashboard#create'
+
+        get 'sign_in', to: 'sessions#new', as: :sign_in
+        post 'sign_in', to: 'sessions#create'
+        get 'sign_out_page', to: 'dashboard#sign_out_view'
+        delete 'force_destroy', to: 'dashboard#force_destroy_admin', as: :force_destroy_admin
+
+
+        get 'dashboard', to: 'dashboard#index'
+
+        resources :users, controller: 'dashboard', only: [:edit, :update, :destroy] do
+          collection do
+            get 'new', action: 'new_user'
+            post '', action: 'create_user'
+          end
+        end
+      end
+
 
      # devise_for :users  
 

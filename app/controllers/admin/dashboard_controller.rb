@@ -1,6 +1,6 @@
 class Admin::DashboardController < ApplicationController
-  before_action :authenticate_admin!, except: [:new, :create]
-  before_action :redirect_if_admin_exists, only: [:new, :create]
+  before_action :authenticate_admin!, except: [:new, :create, :sign_out_view]
+  before_action :redirect_if_admin_exists, only: [:new, :create, :destroy]
   before_action :set_user, only: [:edit, :update_user, :destroy]
 
   def index
@@ -16,7 +16,7 @@ class Admin::DashboardController < ApplicationController
   def create
     @admin = Admin.new(admin_params)
     if @admin.save
-      redirect_to new_admin_session_path, notice: "Admin account created. Please sign in."
+      redirect_to users_path, notice: "Admin account created, we redirected you to your user accounts database."
     else
       render :new, status: :unprocessable_entity
     end
@@ -49,10 +49,26 @@ class Admin::DashboardController < ApplicationController
   end
 
   def destroy
-    @user.destroy!
-    redirect_to admin_dashboard_index_path, status: :see_other, notice: "User deleted."
+    session[:admin_id] = nil
+    redirect_to admin_sign_in_path, notice: "Signed out successfully."
   end
 
+  def force_destroy_admin
+    if current_admin
+      current_admin.destroy!
+      sign_out(:admin)  # Devise sign out
+      redirect_to home_path
+    else
+      redirect_to root_path, alert: "No admin signed in."
+    end
+  end
+  
+
+  def sign_out_view
+    render :sign_out
+  end
+
+  
   private
 
   def admin_params
@@ -69,7 +85,8 @@ class Admin::DashboardController < ApplicationController
 
   def redirect_if_admin_exists
     if Admin.exists?
-      redirect_to new_admin_session_path, alert: "Admin account already exists."
+      redirect_to home_path, alert: "Admin account already exists."
+
     end
   end
 end

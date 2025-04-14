@@ -1,0 +1,12 @@
+<h1>Admin Sign Out</h1>
+
+<p>You are currently signed in as an Administrator.</p>
+
+<%= button_to "Sign Out", destroy_admin_session_path,
+              method: :delete,
+              class: "btn btn-danger",
+              data: { confirm: "Are you sure you want to sign out?" } %>
+
+
+<%= link_to "Cancel", root_path, class: "btn btn-secondary" %>
+

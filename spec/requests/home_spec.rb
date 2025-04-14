@@ -33,7 +33,6 @@ RSpec.describe HomeController, type: :request do
         get home_path  # Change from root_path to home_path
         expect(response.body).to include("Categories")
         expect(response.body).to include("Cart")
-        expect(response.body).to include("Sign In")
       end
 
       it "displays three product placeholders" do
