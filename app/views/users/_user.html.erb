@@ -1,27 +1,29 @@
-<div id="<%= dom_id user %>">
-  <p>
+<div id="<%= dom_id user %>" class="card shadow p-4 mb-3">
+  <h4 class="card-title text-center mb-3">User Details</h4>
+  <hr class="border-light">
+
+  <div class="mb-2">
     <strong>Email:</strong>
-    <%= user.email %>
-  </p>
+    <span class="ms-2"><%= user.email %></span>
+  </div>
 
-  <p>
-    <strong>Password digest:</strong>
-    <%= user.encrypted_password %>
-  </p>
+  <div class="mb-2">
+    <strong>Password Digest:</strong>
+    <span class="ms-2"><%= user.encrypted_password %></span>
+  </div>
 
-  <p>
+  <div class="mb-2">
     <strong>Guest:</strong>
-    <%= user.guest %>
-  </p>
+    <span class="ms-2"><%= user.guest ? "Yes" : "No" %></span>
+  </div>
 
-  <p>
-    <strong>First name:</strong>
-    <%= user.first_name %>
-  </p>
+  <div class="mb-2">
+    <strong>First Name:</strong>
+    <span class="ms-2"><%= user.first_name %></span>
+  </div>
 
-  <p>
-    <strong>Last name:</strong>
-    <%= user.last_name %>
-  </p>
-
+  <div class="mb-2">
+    <strong>Last Name:</strong>
+    <span class="ms-2"><%= user.last_name %></span>
+  </div>
 </div>
